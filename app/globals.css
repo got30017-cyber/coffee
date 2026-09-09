@@ -30,7 +30,7 @@
   --ratio-editorial-image: 16 / 9;
   --shadow-card: 0 16px 36px rgba(23, 23, 22, 0.08);
   --shadow-product: 0 34px 54px rgba(57, 42, 27, 0.22);
-  --script: 'Segoe Print', 'Bradley Hand ITC', 'Comic Sans MS', cursive;
+  --script: var(--font-caveat), 'Segoe Print', cursive;
 }
 
 * {
@@ -1126,9 +1126,30 @@ h2 {
   }
 
   .hero__lead {
-    max-width: 280px;
+    position: relative;
+    isolation: isolate;
+    max-width: 275px;
     margin-bottom: 24px;
-    font-size: 1.05rem;
+    color: #40362f;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.32;
+    text-shadow: 0 1px 10px rgba(255, 250, 241, 0.72);
+    text-wrap: balance;
+  }
+
+  .hero__lead::before {
+    position: absolute;
+    inset: -10px -18px -10px -12px;
+    z-index: -1;
+    background: radial-gradient(
+      ellipse at 34% 50%,
+      rgba(255, 249, 239, 0.76) 0%,
+      rgba(255, 249, 239, 0.34) 54%,
+      rgba(255, 249, 239, 0) 78%
+    );
+    content: '';
+    pointer-events: none;
   }
 
   .category-strip {
@@ -1148,9 +1169,33 @@ h2 {
   }
 
   .category-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 1fr auto;
+    align-content: stretch;
+    align-items: start;
+    column-gap: 16px;
+    row-gap: 12px;
     min-width: 245px;
     min-height: 122px;
+    padding: 20px 20px 16px;
     scroll-snap-align: start;
+  }
+
+  .category-card > span {
+    min-width: 0;
+  }
+
+  .category-card > svg:not(.category-card__arrow) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .category-card__arrow {
+    position: static;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: start;
   }
 
   .section-block {
@@ -2134,22 +2179,21 @@ h2 {
   filter: drop-shadow(0 28px 44px rgba(57, 42, 27, 0.2));
 }
 
-.featured-article__handwritten {
+.featured-article p.featured-article__handwritten {
   position: absolute;
   top: 58px;
   left: 43%;
   z-index: 3;
   max-width: 230px;
   margin: 0;
-  color: rgba(47, 39, 32, 0.68);
-  font-family: 'Segoe Script', 'Segoe Print', 'Comic Sans MS', cursive;
-  font-size: clamp(0.88rem, 1.1vw, 1.06rem);
-  font-style: italic;
+  color: #463a31;
+  font-family: var(--script);
+  font-size: clamp(1rem, 1.35vw, 1.22rem);
   font-weight: 600;
-  letter-spacing: -0.045em;
-  line-height: 1.08;
+  letter-spacing: 0;
+  line-height: 1.02;
   text-shadow: 0 1px 10px rgba(255, 249, 240, 0.7);
-  transform: rotate(-6deg) skew(-3deg);
+  transform: rotate(-2deg);
   pointer-events: none;
 }
 
@@ -2555,11 +2599,12 @@ h2 {
   left: 34px;
   z-index: 2;
   margin: 0;
-  color: #292622;
+  color: #3e342c;
   font-family: var(--script);
   font-size: 1rem;
+  font-weight: 600;
   line-height: 1.23;
-  transform: rotate(-6deg);
+  transform: rotate(-2deg);
 }
 
 .checkout-benefits {
@@ -3074,13 +3119,13 @@ h2 {
     width: min(68vw, 260px);
   }
 
-  .featured-article__handwritten {
+  .featured-article p.featured-article__handwritten {
     top: 36px;
     right: auto;
     left: 24px;
     max-width: 172px;
-    color: rgba(47, 39, 32, 0.68);
-    font-size: 0.82rem;
+    color: #463a31;
+    font-size: 1.05rem;
   }
 
   .articles-grid {

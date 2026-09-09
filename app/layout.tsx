@@ -1,7 +1,15 @@
 import type { Metadata } from 'next';
+import { Caveat } from 'next/font/google';
 import './globals.css';
 import { StoreFooter } from '@/components/store-footer';
 import { StoreHeader } from '@/components/store-header';
+
+const caveat = Caveat({
+  subsets: ['cyrillic', 'latin'],
+  weight: 'variable',
+  display: 'swap',
+  variable: '--font-caveat',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -18,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" data-scroll-behavior="smooth">
+    <html lang="ru" className={caveat.variable} data-scroll-behavior="smooth">
       <body>
         <StoreHeader />
         {children}
