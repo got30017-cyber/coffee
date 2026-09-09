@@ -473,25 +473,6 @@ h2 {
   );
 }
 
-.hero__handwritten {
-  position: absolute;
-  top: 72px;
-  right: clamp(108px, 10vw, 170px);
-  z-index: 2;
-  max-width: 270px;
-  margin: 0;
-  color: rgba(47, 39, 32, 0.78);
-  font-family: var(--script);
-  font-size: clamp(1rem, 1.42vw, 1.36rem);
-  letter-spacing: -0.015em;
-  line-height: 1.16;
-  text-shadow:
-    0 1px 10px rgba(255, 249, 240, 0.72),
-    0 8px 22px rgba(54, 38, 24, 0.08);
-  transform: rotate(-6deg);
-  pointer-events: none;
-}
-
 .hero__content {
   position: relative;
   z-index: 3;
@@ -844,25 +825,10 @@ h2 {
   z-index: 2;
 }
 
-.story-banner__content,
-.story-banner__handwritten {
-  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.55);
-}
-
-.story-banner__handwritten {
-  position: absolute;
-  right: clamp(270px, 26vw, 380px);
-  top: 28px;
-  z-index: 2;
-  max-width: 190px;
-  margin: 0;
-  color: rgba(47, 39, 32, 0.74);
-  font-family: var(--script);
-  font-size: clamp(0.95rem, 1.2vw, 1.18rem);
-  letter-spacing: -0.015em;
-  line-height: 1.14;
-  transform: rotate(-6deg);
-  pointer-events: none;
+.story-banner__content {
+  text-shadow:
+    0 1px 12px rgba(255, 255, 255, 0.78),
+    0 0 2px rgba(255, 255, 255, 0.58);
 }
 
 .story-banner h2 {
@@ -1136,7 +1102,7 @@ h2 {
   }
 
   .hero__ambient img {
-    object-position: 48% 50%;
+    object-position: 100% 50%;
   }
 
   .hero__wash {
@@ -1146,10 +1112,6 @@ h2 {
       rgba(255, 255, 255, 0.08) 32%,
       rgba(255, 255, 255, 0) 54%
     );
-  }
-
-  .hero__handwritten {
-    display: none;
   }
 
   .hero__content {
@@ -1263,26 +1225,27 @@ h2 {
     background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.08) 48%,
-      rgba(255, 255, 255, 0.36) 100%
+      rgba(255, 255, 255, 0.14) 40%,
+      rgba(255, 255, 255, 0.5) 100%
     );
   }
 
-  .story-banner__handwritten {
-    top: 28px;
-    right: 22px;
-    max-width: 140px;
-    color: rgba(54, 43, 32, 0.72);
-    font-size: 0.92rem;
-    line-height: 1.12;
+  .story-banner__content {
     text-shadow:
-      0 1px 9px rgba(255, 246, 224, 0.7),
-      0 6px 18px rgba(65, 43, 24, 0.08);
-    transform: rotate(-5deg);
+      0 1px 16px rgba(255, 255, 255, 0.96),
+      0 0 4px rgba(255, 255, 255, 0.86),
+      0 10px 26px rgba(255, 255, 255, 0.42);
   }
 
   .story-banner h2 {
-    font-size: 2.25rem;
+    font-size: 1.82rem;
+    line-height: 1;
+  }
+
+  .story-banner p {
+    max-width: 230px;
+    font-size: 0.9rem;
+    line-height: 1.25;
   }
 
   .story-banner .button {
@@ -1365,11 +1328,6 @@ h2 {
     font-size: 2.95rem;
   }
 
-  .story-banner__handwritten {
-    right: 18px;
-    font-size: 0.88rem;
-  }
-
   .category-card {
     min-width: 225px;
   }
@@ -1440,25 +1398,6 @@ h2 {
     rgba(255, 255, 255, 0.08) 36%,
     rgba(255, 255, 255, 0) 58%
   );
-}
-
-.catalog-hero__handwritten {
-  position: absolute;
-  top: 62px;
-  right: clamp(168px, 13vw, 238px);
-  z-index: 2;
-  max-width: 180px;
-  margin: 0;
-  color: rgba(47, 39, 32, 0.75);
-  font-family: var(--script);
-  font-size: clamp(0.95rem, 1.28vw, 1.18rem);
-  letter-spacing: -0.015em;
-  line-height: 1.12;
-  text-shadow:
-    0 1px 10px rgba(255, 249, 240, 0.74),
-    0 8px 22px rgba(54, 38, 24, 0.08);
-  transform: rotate(-6deg);
-  pointer-events: none;
 }
 
 .catalog-hero > .container {
@@ -2202,13 +2141,15 @@ h2 {
   z-index: 3;
   max-width: 230px;
   margin: 0;
-  color: rgba(47, 39, 32, 0.7);
-  font-family: var(--script);
+  color: rgba(47, 39, 32, 0.68);
+  font-family: 'Segoe Script', 'Segoe Print', 'Comic Sans MS', cursive;
   font-size: clamp(0.88rem, 1.1vw, 1.06rem);
-  letter-spacing: -0.015em;
-  line-height: 1.12;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
   text-shadow: 0 1px 10px rgba(255, 249, 240, 0.7);
-  transform: rotate(-5deg);
+  transform: rotate(-6deg) skew(-3deg);
   pointer-events: none;
 }
 
@@ -2817,10 +2758,6 @@ h2 {
     width: 300px;
   }
 
-  .featured-article__handwritten {
-    left: 42%;
-  }
-
   .articles-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2867,20 +2804,6 @@ h2 {
     );
   }
 
-  .catalog-hero__handwritten {
-    top: 72px;
-    right: auto;
-    left: clamp(168px, 50vw, 202px);
-    max-width: 126px;
-    color: rgba(54, 43, 32, 0.72);
-    font-size: 0.86rem;
-    line-height: 1.1;
-    text-shadow:
-      0 1px 9px rgba(255, 246, 224, 0.72),
-      0 6px 18px rgba(65, 43, 24, 0.08);
-    transform: rotate(-5deg);
-  }
-
   .catalog-hero .eyebrow {
     margin-top: 24px;
   }
@@ -2904,7 +2827,14 @@ h2 {
   }
 
   .catalog-hero > .container > p:last-child {
-    max-width: 250px;
+    max-width: 286px;
+    color: #2f3842;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.28;
+    text-shadow:
+      0 1px 12px rgba(255, 255, 255, 0.92),
+      0 0 3px rgba(255, 255, 255, 0.78);
   }
 
   .catalog-page {

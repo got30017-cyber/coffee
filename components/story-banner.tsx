@@ -20,11 +20,6 @@ export function StoryBanner() {
         </picture>
       </div>
       <div className="story-banner__wash" aria-hidden="true" />
-      <p className="story-banner__handwritten" aria-hidden="true">
-        Хорошие люди.
-        <br />
-        Великий кофе.
-      </p>
       <div className="story-banner__content">
         <h2>Кофе с историей</h2>
         <p>Зёрна от фермеров, которые вдохновляют</p>

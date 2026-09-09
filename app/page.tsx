@@ -47,11 +47,6 @@ export default function HomePage() {
           </picture>
         </div>
         <div className="hero__wash" aria-hidden="true" />
-        <p className="hero__handwritten" aria-hidden="true">
-          Хороший день
-          <br />
-          начинается здесь
-        </p>
         <div className="container hero__content">
           <p className="eyebrow">Свежая обжарка</p>
           <h1 id="hero-title">
