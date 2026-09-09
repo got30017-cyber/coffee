@@ -491,8 +491,12 @@ h2 {
 
 .hero__lead {
   margin-bottom: 30px;
-  color: #4f5966;
-  font-size: 1.35rem;
+  color: #5a514a;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.25;
 }
 
 .category-strip {
@@ -826,19 +830,26 @@ h2 {
 }
 
 .story-banner__content {
-  text-shadow:
-    0 1px 12px rgba(255, 255, 255, 0.78),
-    0 0 2px rgba(255, 255, 255, 0.58);
+  translate: clamp(96px, 14vw, 185px) -14px;
 }
 
 .story-banner h2 {
   margin-bottom: 5px;
-  font-size: clamp(2rem, 3.2vw, 3.1rem);
+  color: #2f2a26;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 2.6vw, 2.7rem);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .story-banner p {
   margin-bottom: 0;
-  font-size: 1.05rem;
+  color: #4f463f;
+  font-family: var(--sans);
+  font-size: 1.02rem;
+  font-weight: 400;
+  line-height: 1.35;
 }
 
 .taste-grid {
@@ -1126,30 +1137,11 @@ h2 {
   }
 
   .hero__lead {
-    position: relative;
-    isolation: isolate;
     max-width: 275px;
     margin-bottom: 24px;
-    color: #40362f;
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.32;
-    text-shadow: 0 1px 10px rgba(255, 250, 241, 0.72);
+    font-size: 1.2rem;
+    line-height: 1.28;
     text-wrap: balance;
-  }
-
-  .hero__lead::before {
-    position: absolute;
-    inset: -10px -18px -10px -12px;
-    z-index: -1;
-    background: radial-gradient(
-      ellipse at 34% 50%,
-      rgba(255, 249, 239, 0.76) 0%,
-      rgba(255, 249, 239, 0.34) 54%,
-      rgba(255, 249, 239, 0) 78%
-    );
-    content: '';
-    pointer-events: none;
   }
 
   .category-strip {
@@ -1276,21 +1268,18 @@ h2 {
   }
 
   .story-banner__content {
-    text-shadow:
-      0 1px 16px rgba(255, 255, 255, 0.96),
-      0 0 4px rgba(255, 255, 255, 0.86),
-      0 10px 26px rgba(255, 255, 255, 0.42);
+    translate: clamp(52px, 15vw, 58px) -78px;
   }
 
   .story-banner h2 {
-    font-size: 1.82rem;
-    line-height: 1;
+    font-size: 1.75rem;
+    line-height: 1.02;
   }
 
   .story-banner p {
     max-width: 230px;
-    font-size: 0.9rem;
-    line-height: 1.25;
+    font-size: 0.95rem;
+    line-height: 1.32;
   }
 
   .story-banner .button {
@@ -2182,7 +2171,7 @@ h2 {
 .featured-article p.featured-article__handwritten {
   position: absolute;
   top: 58px;
-  left: 43%;
+  left: 14%;
   z-index: 3;
   max-width: 230px;
   margin: 0;
