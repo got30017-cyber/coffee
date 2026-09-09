@@ -64,11 +64,9 @@ export default function ArticlesPage() {
             />
           </div>
           <p className="featured-article__handwritten" aria-hidden="true">
-            Хорошие
+            Хорошие истории
             <br />
-            истории начинаются
-            <br />
-            с кофе
+            начинаются с кофе
           </p>
         </div>
       </section>

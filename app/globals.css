@@ -475,15 +475,20 @@ h2 {
 
 .hero__handwritten {
   position: absolute;
-  top: 86px;
-  right: clamp(78px, 8vw, 124px);
+  top: 72px;
+  right: clamp(108px, 10vw, 170px);
   z-index: 2;
+  max-width: 270px;
   margin: 0;
-  color: #34302c;
+  color: rgba(47, 39, 32, 0.78);
   font-family: var(--script);
-  font-size: clamp(1.08rem, 1.7vw, 1.65rem);
-  line-height: 1.33;
-  transform: rotate(-8deg);
+  font-size: clamp(1rem, 1.42vw, 1.36rem);
+  letter-spacing: -0.015em;
+  line-height: 1.16;
+  text-shadow:
+    0 1px 10px rgba(255, 249, 240, 0.72),
+    0 8px 22px rgba(54, 38, 24, 0.08);
+  transform: rotate(-6deg);
   pointer-events: none;
 }
 
@@ -846,15 +851,17 @@ h2 {
 
 .story-banner__handwritten {
   position: absolute;
-  right: 21%;
-  top: 24px;
+  right: clamp(270px, 26vw, 380px);
+  top: 28px;
   z-index: 2;
+  max-width: 190px;
   margin: 0;
-  color: #2f2c28;
+  color: rgba(47, 39, 32, 0.74);
   font-family: var(--script);
-  font-size: clamp(0.98rem, 1.4vw, 1.35rem);
-  line-height: 1.2;
-  transform: rotate(-8deg);
+  font-size: clamp(0.95rem, 1.2vw, 1.18rem);
+  letter-spacing: -0.015em;
+  line-height: 1.14;
+  transform: rotate(-6deg);
   pointer-events: none;
 }
 
@@ -1129,7 +1136,7 @@ h2 {
   }
 
   .hero__ambient img {
-    object-position: 50% 50%;
+    object-position: 48% 50%;
   }
 
   .hero__wash {
@@ -1153,7 +1160,7 @@ h2 {
 
   .hero h1 {
     margin-bottom: 10px;
-    font-size: clamp(3.25rem, 15vw, 4.7rem);
+    font-size: clamp(3rem, 13.2vw, 4rem);
   }
 
   .hero__lead {
@@ -1262,9 +1269,16 @@ h2 {
   }
 
   .story-banner__handwritten {
-    top: 26px;
-    right: 24px;
-    font-size: 1rem;
+    top: 28px;
+    right: 22px;
+    max-width: 140px;
+    color: rgba(54, 43, 32, 0.72);
+    font-size: 0.92rem;
+    line-height: 1.12;
+    text-shadow:
+      0 1px 9px rgba(255, 246, 224, 0.7),
+      0 6px 18px rgba(65, 43, 24, 0.08);
+    transform: rotate(-5deg);
   }
 
   .story-banner h2 {
@@ -1348,11 +1362,12 @@ h2 {
   }
 
   .hero h1 {
-    font-size: 3.15rem;
+    font-size: 2.95rem;
   }
 
   .story-banner__handwritten {
     right: 18px;
+    font-size: 0.88rem;
   }
 
   .category-card {
@@ -1429,15 +1444,20 @@ h2 {
 
 .catalog-hero__handwritten {
   position: absolute;
-  top: 58px;
-  right: clamp(62px, 8vw, 128px);
+  top: 62px;
+  right: clamp(168px, 13vw, 238px);
   z-index: 2;
+  max-width: 180px;
   margin: 0;
-  color: #302c28;
+  color: rgba(47, 39, 32, 0.75);
   font-family: var(--script);
-  font-size: clamp(1rem, 1.45vw, 1.35rem);
-  line-height: 1.24;
-  transform: rotate(-8deg);
+  font-size: clamp(0.95rem, 1.28vw, 1.18rem);
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  text-shadow:
+    0 1px 10px rgba(255, 249, 240, 0.74),
+    0 8px 22px rgba(54, 38, 24, 0.08);
+  transform: rotate(-6deg);
   pointer-events: none;
 }
 
@@ -2177,15 +2197,18 @@ h2 {
 
 .featured-article__handwritten {
   position: absolute;
-  top: 34px;
-  right: 48px;
+  top: 58px;
+  left: 43%;
   z-index: 3;
+  max-width: 230px;
   margin: 0;
-  color: #302c28;
+  color: rgba(47, 39, 32, 0.7);
   font-family: var(--script);
-  font-size: clamp(0.95rem, 1.35vw, 1.25rem);
-  line-height: 1.22;
-  transform: rotate(-8deg);
+  font-size: clamp(0.88rem, 1.1vw, 1.06rem);
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  text-shadow: 0 1px 10px rgba(255, 249, 240, 0.7);
+  transform: rotate(-5deg);
   pointer-events: none;
 }
 
@@ -2728,11 +2751,6 @@ h2 {
 }
 
 @media (max-width: 900px) {
-  .story-banner__handwritten {
-    right: 36%;
-    top: 18px;
-  }
-
   .catalog-hero {
     min-height: 260px;
   }
@@ -2800,7 +2818,7 @@ h2 {
   }
 
   .featured-article__handwritten {
-    right: 24px;
+    left: 42%;
   }
 
   .articles-grid {
@@ -2850,9 +2868,17 @@ h2 {
   }
 
   .catalog-hero__handwritten {
-    top: 88px;
-    right: 18px;
-    font-size: 0.8rem;
+    top: 72px;
+    right: auto;
+    left: clamp(168px, 50vw, 202px);
+    max-width: 126px;
+    color: rgba(54, 43, 32, 0.72);
+    font-size: 0.86rem;
+    line-height: 1.1;
+    text-shadow:
+      0 1px 9px rgba(255, 246, 224, 0.72),
+      0 6px 18px rgba(65, 43, 24, 0.08);
+    transform: rotate(-5deg);
   }
 
   .catalog-hero .eyebrow {
@@ -3119,9 +3145,12 @@ h2 {
   }
 
   .featured-article__handwritten {
-    top: 24px;
-    right: 22px;
-    font-size: 0.9rem;
+    top: 36px;
+    right: auto;
+    left: 24px;
+    max-width: 172px;
+    color: rgba(47, 39, 32, 0.68);
+    font-size: 0.82rem;
   }
 
   .articles-grid {

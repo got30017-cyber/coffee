@@ -30,9 +30,9 @@ export default function CatalogPage() {
         </div>
         <div className="catalog-hero__wash" aria-hidden="true" />
         <p className="catalog-hero__handwritten" aria-hidden="true">
-          Свежая
+          Свежая партия
           <br />
-          партия недели
+          недели
         </p>
         <div className="container">
           <Breadcrumbs items={[{ label: 'Каталог' }, { label: 'Кофе' }]} />

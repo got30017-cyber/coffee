@@ -48,11 +48,9 @@ export default function HomePage() {
         </div>
         <div className="hero__wash" aria-hidden="true" />
         <p className="hero__handwritten" aria-hidden="true">
-          Хороший
+          Хороший день
           <br />
-          день начинается
-          <br />
-          здесь
+          начинается здесь
         </p>
         <div className="container hero__content">
           <p className="eyebrow">Свежая обжарка</p>

@@ -21,9 +21,7 @@ export function StoryBanner() {
       </div>
       <div className="story-banner__wash" aria-hidden="true" />
       <p className="story-banner__handwritten" aria-hidden="true">
-        Хорошие
-        <br />
-        люди.
+        Хорошие люди.
         <br />
         Великий кофе.
       </p>
