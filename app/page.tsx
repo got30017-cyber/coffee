@@ -7,6 +7,7 @@ import {
   Coffee,
   Nut,
   PackageOpen,
+  Scale,
   Sparkles,
 } from 'lucide-react';
 import { EditorialCard } from '@/components/editorial-card';
@@ -18,13 +19,14 @@ const categories = [
   { title: 'Для фильтра', note: 'Чистый и яркий вкус', icon: Coffee },
   { title: 'Для эспрессо', note: 'Плотный и шоколадный', icon: Sparkles },
   { title: 'Дрип-пакеты', note: 'Кофе в любом месте', icon: PackageOpen },
+  { title: 'Аксессуары', note: 'Для точного заваривания', icon: Scale },
 ];
 
 const tastes = [
-  { title: 'Шоколадный', icon: Candy },
-  { title: 'Ягодный', icon: Cherry },
-  { title: 'Цитрусовый', icon: Citrus },
-  { title: 'Ореховый', icon: Nut },
+  { title: 'Шоколадный', icon: Candy, tone: 'cocoa' },
+  { title: 'Ягодный', icon: Cherry, tone: 'berry' },
+  { title: 'Цитрусовый', icon: Citrus, tone: 'citrus' },
+  { title: 'Ореховый', icon: Nut, tone: 'nut' },
 ];
 
 export default function HomePage() {
@@ -81,17 +83,6 @@ export default function HomePage() {
               />
             </Link>
           ))}
-          <Link className="category-card category-card--image" href="/catalog">
-            <span>
-              <strong>Аксессуары</strong>
-              <small>Для точного заваривания</small>
-            </span>
-            <ArrowRight
-              className="category-card__arrow"
-              aria-hidden="true"
-              size={17}
-            />
-          </Link>
         </section>
 
         <section className="section-block" aria-labelledby="popular-title">
@@ -118,9 +109,12 @@ export default function HomePage() {
             <h2 id="taste-title">Подобрать по вкусу</h2>
           </div>
           <div className="taste-grid" data-reveal>
-            {tastes.map(({ title, icon: Icon }) => (
+            {tastes.map(({ title, icon: Icon, tone }) => (
               <Link href="/catalog" className="taste-card" key={title}>
-                <span className="taste-card__icon" aria-hidden="true">
+                <span
+                  className={`taste-card__icon taste-card__icon--${tone}`}
+                  aria-hidden="true"
+                >
                   <Icon size={26} strokeWidth={1.45} />
                 </span>
                 <strong>{title}</strong>

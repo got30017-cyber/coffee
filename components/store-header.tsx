@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  ChevronDown,
   Heart,
   Menu,
   Search,
@@ -124,13 +123,7 @@ export function StoreHeader() {
         <div className="container site-header__inner">
           <Brand />
           <nav className="desktop-nav" aria-label="Основная навигация">
-            <Link href="/catalog">
-              Каталог <ChevronDown size={14} />
-            </Link>
-            <Link href="/catalog">
-              Кофе <ChevronDown size={14} />
-            </Link>
-            <Link href="/catalog">Аксессуары</Link>
+            <Link href="/catalog">Каталог</Link>
             <Link href="/articles">Статьи</Link>
           </nav>
           <div className="header-actions">
@@ -201,8 +194,6 @@ export function StoreHeader() {
           <nav aria-label="Мобильная навигация">
             {[
               ['Каталог', '/catalog'],
-              ['Кофе', '/catalog'],
-              ['Аксессуары', '/catalog'],
               ['Статьи', '/articles'],
             ].map(([label, href]) => (
               <Link href={href} key={label} onClick={closeMenu}>
