@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import {
   Coffee,
+  Check,
   Heart,
   Minus,
   PackageCheck,
@@ -12,6 +13,7 @@ import {
   Truck,
 } from 'lucide-react';
 import type { CoffeeProduct } from '@/lib/store-data';
+import { useFavorite } from '@/lib/use-favorite';
 
 const tabs = ['Описание', 'Характеристики', 'Отзывы (12)'];
 
@@ -20,7 +22,7 @@ export function ProductDetail({ product }: { product: CoffeeProduct }) {
   const [weight, setWeight] = useState(250);
   const [grind, setGrind] = useState('В зёрнах');
   const [quantity, setQuantity] = useState(1);
-  const [favorite, setFavorite] = useState(false);
+  const { favorite, toggleFavorite } = useFavorite(product.slug);
   const [activeTab, setActiveTab] = useState(0);
   const [added, setAdded] = useState(false);
 
@@ -34,7 +36,7 @@ export function ProductDetail({ product }: { product: CoffeeProduct }) {
 
   const addToCart = () => {
     setAdded(true);
-    window.dispatchEvent(new Event('cart:add'));
+    window.dispatchEvent(new CustomEvent('cart:add', { detail: { quantity } }));
     window.setTimeout(() => setAdded(false), 1500);
   };
 
@@ -83,7 +85,8 @@ export function ProductDetail({ product }: { product: CoffeeProduct }) {
             <strong>{price.toLocaleString('ru-RU')} ₽</strong>
             <button
               className={`favorite-button favorite-button--detail ${favorite ? 'is-active' : ''}`}
-              onClick={() => setFavorite(!favorite)}
+              onClick={toggleFavorite}
+              aria-pressed={favorite}
               aria-label={
                 favorite ? 'Убрать из избранного' : 'Добавить в избранное'
               }
@@ -147,11 +150,11 @@ export function ProductDetail({ product }: { product: CoffeeProduct }) {
               </button>
             </div>
             <button
-              className="button button--dark product-add-button"
+              className={`button button--dark product-add-button ${added ? 'is-added' : ''}`}
               onClick={addToCart}
               aria-live="polite"
             >
-              <ShoppingBag size={20} />
+              {added ? <Check size={20} /> : <ShoppingBag size={20} />}
               {added ? 'Добавлено' : 'В корзину'}
             </button>
           </div>

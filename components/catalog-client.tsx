@@ -1,34 +1,67 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, SlidersHorizontal, X } from 'lucide-react';
 import { ProductCard } from '@/components/product-card';
 import type { CoffeeProduct } from '@/lib/store-data';
 
 const methodOptions = ['Для фильтра', 'Эспрессо', 'Для турки'];
 const tasteOptions = ['Шоколад', 'Ягоды', 'Цитрусы', 'Орехи', 'Цветы'];
+const roastOptions = ['Светлая', 'Средняя', 'Тёмная'];
 
 export function CatalogClient({ products }: { products: CoffeeProduct[] }) {
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [roasts, setRoasts] = useState<string[]>([]);
   const [methods, setMethods] = useState<string[]>([]);
   const [tastes, setTastes] = useState<string[]>([]);
   const [sort, setSort] = useState('popular');
+  const drawerRef = useRef<HTMLDialogElement>(null);
+  const filterTriggerRef = useRef<HTMLButtonElement>(null);
+  const drawerCloseRef = useRef<HTMLButtonElement>(null);
+  const closeTimerRef = useRef<number | null>(null);
+
+  const closeFilters = useCallback(() => {
+    setFiltersOpen(false);
+    if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = window.setTimeout(() => {
+      drawerRef.current?.close();
+      document.body.style.overflow = '';
+      filterTriggerRef.current?.focus();
+    }, 180);
+  }, []);
+
+  const openFilters = () => {
+    if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+    const drawer = drawerRef.current;
+    if (drawer && !drawer.open) drawer.showModal();
+    document.body.style.overflow = 'hidden';
+    window.requestAnimationFrame(() => {
+      setFiltersOpen(true);
+      window.requestAnimationFrame(() => drawerCloseRef.current?.focus());
+    });
+  };
+
+  useEffect(
+    () => () => {
+      if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+      document.body.style.overflow = '';
+    },
+    [],
+  );
 
   useEffect(() => {
-    if (!filtersOpen) return;
-    const close = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setFiltersOpen(false);
-    };
-    document.addEventListener('keydown', close);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', close);
-      document.body.style.overflow = '';
-    };
+    if (filtersOpen) drawerCloseRef.current?.focus();
   }, [filtersOpen]);
 
   const filteredProducts = useMemo(() => {
     const result = products.filter((product) => {
+      const roast =
+        product.roast <= 2
+          ? 'Светлая'
+          : product.roast === 3
+            ? 'Средняя'
+            : 'Тёмная';
+      const roastMatch = !roasts.length || roasts.includes(roast);
       const methodMatch = !methods.length || methods.includes(product.method);
       const tasteMatch =
         !tastes.length ||
@@ -37,7 +70,7 @@ export function CatalogClient({ products }: { products: CoffeeProduct[] }) {
             note.toLowerCase().includes(taste.toLowerCase()),
           ),
         );
-      return methodMatch && tasteMatch;
+      return roastMatch && methodMatch && tasteMatch;
     });
 
     return [...result].sort((a, b) => {
@@ -45,7 +78,7 @@ export function CatalogClient({ products }: { products: CoffeeProduct[] }) {
       if (sort === 'price-desc') return b.price - a.price;
       return products.indexOf(a) - products.indexOf(b);
     });
-  }, [methods, products, sort, tastes]);
+  }, [methods, products, roasts, sort, tastes]);
 
   const toggle = (
     value: string,
@@ -60,11 +93,14 @@ export function CatalogClient({ products }: { products: CoffeeProduct[] }) {
   };
 
   const filterProps = {
+    roasts,
     methods,
     tastes,
+    toggleRoast: (value: string) => toggle(value, roasts, setRoasts),
     toggleMethod: (value: string) => toggle(value, methods, setMethods),
     toggleTaste: (value: string) => toggle(value, tastes, setTastes),
     reset: () => {
+      setRoasts([]);
       setMethods([]);
       setTastes([]);
     },
@@ -79,8 +115,11 @@ export function CatalogClient({ products }: { products: CoffeeProduct[] }) {
         <div className="catalog-toolbar">
           <span>Найдено {filteredProducts.length} товаров</span>
           <button
+            ref={filterTriggerRef}
             className="filter-trigger"
-            onClick={() => setFiltersOpen(true)}
+            aria-expanded={filtersOpen}
+            aria-controls="catalog-filters"
+            onClick={openFilters}
           >
             <SlidersHorizontal size={18} /> Фильтры
           </button>
@@ -115,23 +154,28 @@ export function CatalogClient({ products }: { products: CoffeeProduct[] }) {
       </div>
 
       <dialog
-        open={filtersOpen}
+        ref={drawerRef}
+        id="catalog-filters"
         className={`filter-drawer ${filtersOpen ? 'is-open' : ''}`}
-        aria-hidden={!filtersOpen}
         aria-label="Фильтры каталога"
+        onCancel={(event) => {
+          event.preventDefault();
+          closeFilters();
+        }}
       >
         <button
           className="filter-drawer__backdrop"
           aria-label="Закрыть фильтры"
-          onClick={() => setFiltersOpen(false)}
+          onClick={closeFilters}
         />
         <aside className="filter-drawer__panel">
           <div className="filter-drawer__header">
             <h2>Фильтры</h2>
             <button
+              ref={drawerCloseRef}
               className="icon-button"
               aria-label="Закрыть фильтры"
-              onClick={() => setFiltersOpen(false)}
+              onClick={closeFilters}
             >
               <X size={23} />
             </button>
@@ -139,7 +183,7 @@ export function CatalogClient({ products }: { products: CoffeeProduct[] }) {
           <Filters {...filterProps} />
           <button
             className="button button--dark filter-drawer__apply"
-            onClick={() => setFiltersOpen(false)}
+            onClick={closeFilters}
           >
             Показать {filteredProducts.length} товаров
           </button>
@@ -150,14 +194,18 @@ export function CatalogClient({ products }: { products: CoffeeProduct[] }) {
 }
 
 function Filters({
+  roasts,
   methods,
   tastes,
+  toggleRoast,
   toggleMethod,
   toggleTaste,
   reset,
 }: {
+  roasts: string[];
   methods: string[];
   tastes: string[];
+  toggleRoast: (value: string) => void;
   toggleMethod: (value: string) => void;
   toggleTaste: (value: string) => void;
   reset: () => void;
@@ -165,9 +213,13 @@ function Filters({
   return (
     <div className="filters">
       <FilterGroup title="Обжарка">
-        {['Светлая', 'Средняя', 'Тёмная'].map((value, index) => (
+        {roastOptions.map((value) => (
           <label key={value}>
-            <input type="checkbox" defaultChecked={index === 1} />
+            <input
+              type="checkbox"
+              checked={roasts.includes(value)}
+              onChange={() => toggleRoast(value)}
+            />
             <span>{value}</span>
           </label>
         ))}

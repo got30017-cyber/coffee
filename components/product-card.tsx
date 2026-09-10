@@ -2,17 +2,20 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Heart, ShoppingBag } from 'lucide-react';
+import { Check, Heart, ShoppingBag } from 'lucide-react';
 import { useState } from 'react';
 import type { CoffeeProduct } from '@/lib/store-data';
+import { useFavorite } from '@/lib/use-favorite';
 
 export function ProductCard({ product }: { product: CoffeeProduct }) {
-  const [favorite, setFavorite] = useState(false);
+  const { favorite, toggleFavorite } = useFavorite(product.slug);
   const [added, setAdded] = useState(false);
 
   const addToCart = () => {
     setAdded(true);
-    window.dispatchEvent(new Event('cart:add'));
+    window.dispatchEvent(
+      new CustomEvent('cart:add', { detail: { quantity: 1 } }),
+    );
     window.setTimeout(() => setAdded(false), 1300);
   };
 
@@ -36,7 +39,8 @@ export function ProductCard({ product }: { product: CoffeeProduct }) {
         </Link>
         <button
           className={`favorite-button ${favorite ? 'is-active' : ''}`}
-          onClick={() => setFavorite(!favorite)}
+          onClick={toggleFavorite}
+          aria-pressed={favorite}
           aria-label={
             favorite ? 'Убрать из избранного' : 'Добавить в избранное'
           }
@@ -56,11 +60,11 @@ export function ProductCard({ product }: { product: CoffeeProduct }) {
         <div className="product-card__footer">
           <strong>{product.price.toLocaleString('ru-RU')} ₽</strong>
           <button
-            className="button button--dark button--small"
+            className={`button button--dark button--small ${added ? 'is-added' : ''}`}
             onClick={addToCart}
             aria-live="polite"
           >
-            <ShoppingBag size={16} />
+            {added ? <Check size={16} /> : <ShoppingBag size={16} />}
             {added ? 'Добавлено' : 'В корзину'}
           </button>
         </div>
