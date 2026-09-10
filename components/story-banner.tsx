@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 
 export function StoryBanner() {
   return (
-    <section className="story-banner" aria-label="История кофе">
+    <section className="story-banner" aria-label="История кофе" data-reveal>
       <div className="story-banner__media" aria-hidden="true">
         <picture>
           <source

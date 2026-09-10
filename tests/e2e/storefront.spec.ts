@@ -50,6 +50,10 @@ for (const viewport of viewports) {
         expect(hasOverflow).toBe(false);
         expect(errors).toEqual([]);
 
+        await page.locator('[data-reveal]').evaluateAll((elements) => {
+          elements.forEach((element) => element.classList.add('is-revealed'));
+        });
+
         await page.screenshot({
           path: `test-results/screenshots/${screenshotPhase}/${route.name}-${viewport.width}.png`,
           fullPage: true,
@@ -59,6 +63,82 @@ for (const viewport of viewports) {
     }
   });
 }
+
+for (const viewport of [
+  { width: 1440, height: 1000 },
+  { width: 390, height: 844 },
+  { width: 375, height: 812 },
+]) {
+  test(`article filters keep one real selected state at ${viewport.width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/articles/');
+
+    const filters = page.locator('.article-filters');
+    const all = filters.getByRole('button', { name: 'Все' });
+    const brewing = filters.getByRole('button', { name: 'Заваривание' });
+    const grain = filters.getByRole('button', { name: 'Зерно' });
+
+    await expect(all).toHaveAttribute('aria-pressed', 'true');
+    await expect(filters.locator('.is-active')).toHaveCount(1);
+
+    await brewing.click();
+    await expect(brewing).toHaveAttribute('aria-pressed', 'true');
+    await expect(all).toHaveAttribute('aria-pressed', 'false');
+    await expect(filters.locator('.is-active')).toHaveCount(1);
+    await expect(page.locator('.articles-grid .editorial-card')).toHaveCount(2);
+    await expect(
+      page.locator('.articles-grid .editorial-card').first(),
+    ).toContainText('Заваривание');
+
+    await grain.click();
+    await expect(grain).toHaveAttribute('aria-pressed', 'true');
+    await expect(brewing).toHaveAttribute('aria-pressed', 'false');
+    await expect(filters.locator('.is-active')).toHaveCount(1);
+    await expect(page.locator('.articles-grid .editorial-card')).toHaveCount(2);
+  });
+
+  test(`scroll reveal runs once without changing geometry at ${viewport.width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+
+    const banner = page.locator('.story-banner').first();
+    await expect(page.locator('html')).toHaveClass(/reveal-ready/);
+    await expect(banner).not.toHaveClass(/is-revealed/);
+    const before = await banner.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return { width: rect.width, height: rect.height };
+    });
+
+    await banner.scrollIntoViewIfNeeded();
+    await expect(banner).toHaveClass(/is-revealed/);
+    await expect(banner).toHaveCSS('opacity', '1');
+    const after = await banner.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return { width: rect.width, height: rect.height };
+    });
+    expect(after).toEqual(before);
+
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await banner.scrollIntoViewIfNeeded();
+    await expect(banner).toHaveClass(/is-revealed/);
+  });
+}
+
+test('reduced motion keeps reveal content immediately visible', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const banner = page.locator('.story-banner').first();
+  await expect(page.locator('html')).toHaveClass(/reveal-ready/);
+  await expect(banner).toHaveCSS('opacity', '1');
+  await expect(banner).toHaveCSS('transform', 'none');
+});
 
 test('flow C: mobile menu and filter drawer are keyboard-safe', async ({
   page,

@@ -62,7 +62,11 @@ export default function HomePage() {
       </section>
 
       <div className="container">
-        <section className="category-strip" aria-label="Категории кофе">
+        <section
+          className="category-strip"
+          aria-label="Категории кофе"
+          data-reveal
+        >
           {categories.map(({ title, note, icon: Icon }) => (
             <Link className="category-card" href="/catalog" key={title}>
               <span>
@@ -91,13 +95,13 @@ export default function HomePage() {
         </section>
 
         <section className="section-block" aria-labelledby="popular-title">
-          <div className="section-heading">
+          <div className="section-heading" data-reveal>
             <h2 id="popular-title">Популярный кофе</h2>
             <Link href="/catalog">
               Смотреть весь каталог <ArrowRight size={17} />
             </Link>
           </div>
-          <div className="product-row">
+          <div className="product-row" data-reveal>
             {products.slice(0, 4).map((product) => (
               <ProductCard key={product.slug} product={product} />
             ))}
@@ -110,10 +114,10 @@ export default function HomePage() {
           className="section-block section-block--compact"
           aria-labelledby="taste-title"
         >
-          <div className="section-heading">
+          <div className="section-heading" data-reveal>
             <h2 id="taste-title">Подобрать по вкусу</h2>
           </div>
-          <div className="taste-grid">
+          <div className="taste-grid" data-reveal>
             {tastes.map(({ title, icon: Icon }) => (
               <Link href="/catalog" className="taste-card" key={title}>
                 <span className="taste-card__icon" aria-hidden="true">
@@ -130,7 +134,7 @@ export default function HomePage() {
           className="section-block section-block--compact"
           aria-labelledby="articles-title"
         >
-          <div className="section-heading">
+          <div className="section-heading" data-reveal>
             <h2 id="articles-title">Статьи</h2>
             <Link href="/articles">
               Все статьи <ArrowRight size={17} />

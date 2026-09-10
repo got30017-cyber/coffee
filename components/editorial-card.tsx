@@ -14,7 +14,7 @@ export function EditorialCard({
   excerpt?: string;
 }) {
   return (
-    <article className="editorial-card">
+    <article className="editorial-card" data-reveal>
       <div className="editorial-card__image">
         <Image src={image} alt="" fill sizes="(max-width: 768px) 82vw, 30vw" />
       </div>

@@ -46,10 +46,10 @@ export default async function ProductPage({
       />
       <ProductDetail product={product} />
       <section className="section-block related-products">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <h2>Похожие товары</h2>
         </div>
-        <div className="product-row">
+        <div className="product-row" data-reveal>
           {related.map((item) => (
             <ProductCard key={item.slug} product={item} />
           ))}

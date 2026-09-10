@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Caveat } from 'next/font/google';
 import './globals.css';
+import { RevealObserver } from '@/components/reveal-observer';
 import { StoreFooter } from '@/components/store-footer';
 import { StoreHeader } from '@/components/store-header';
 
@@ -31,6 +32,7 @@ export default function RootLayout({
         <StoreHeader />
         {children}
         <StoreFooter />
+        <RevealObserver />
       </body>
     </html>
   );
